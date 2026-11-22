@@ -7,7 +7,23 @@ const test = require("node:test");
 const vm = require("node:vm");
 
 const script = fs.readFileSync(path.join(__dirname, "../assets/site.js"), "utf8");
+const albums = require("../_data/gallery.json").albums;
 const baseUrl = "https://jericho.example/native-plants/";
+
+function buildSite(t) {
+  const root = path.resolve(__dirname, "..");
+  const destination = fs.mkdtempSync(path.join(os.tmpdir(), "jsg-site-test-"));
+  t.after(() => fs.rmSync(destination, { recursive: true, force: true }));
+  const build = spawnSync("bundle", [
+    "exec", "jekyll", "build", "--baseurl", "/preview", "--destination", destination,
+  ], {
+    cwd: root,
+    encoding: "utf8",
+    env: { ...process.env, BUNDLE_PATH: path.join(root, "vendor/bundle"), BUNDLE_FROZEN: "true" },
+  });
+  assert.equal(build.status, 0, build.error?.message || `${build.stdout}\n${build.stderr}`);
+  return destination;
+}
 
 function makeLink(href, target = "", relations = []) {
   const url = new URL(href, baseUrl);
@@ -113,18 +129,70 @@ test("gallery viewer updates image dimensions when changing photos", () => {
   assert.equal(next.disabled, true);
 });
 
+test("gallery albums have valid dates in newest-first order", () => {
+  for (const [index, album] of albums.entries()) {
+    assert.match(album.date, /^\d{4}-\d{2}-\d{2}$/, album.title);
+    const date = new Date(`${album.date}T00:00:00Z`);
+    assert.ok(Number.isFinite(date.getTime()), album.title);
+    assert.equal(date.toISOString().slice(0, 10), album.date, album.title);
+    assert.equal(album.key, album.date, album.title);
+    assert.equal(album.year, album.date.slice(0, 4), album.title);
+    if (index > 0) {
+      assert.ok(albums[index - 1].date >= album.date, `${album.title} is out of order`);
+    }
+  }
+
+  for (const [title, date] of [["May 8, 2022", "2022-05-08"], ["May 9, 2021", "2021-05-09"]]) {
+    assert.equal(albums.find((album) => album.title === title)?.date, date);
+  }
+});
+
+test("gallery photos do not inherit the following album's heading", () => {
+  for (const [title, filename] of [
+    ["April 2023", "IMG_3085-768x1024.jpg"],
+    ["March 2023", "IMG_2950-768x1024.jpg"],
+    ["February 2023", "IMG_2844-768x1024.jpg"],
+  ]) {
+    const photo = albums.find((album) => album.title === title)?.photos.find((item) => item.thumb.endsWith(filename));
+    assert.ok(photo, `Missing photo ${filename}`);
+    assert.equal(photo.alt, title);
+    assert.equal(photo.caption, "");
+  }
+});
+
+test("rendered gallery names photos distinctly and retains the homepage photos", (t) => {
+  const destination = buildSite(t);
+  const gallery = fs.readFileSync(path.join(destination, "gallery/index.html"), "utf8");
+  const cards = [...gallery.matchAll(/<details class="album-card"[^>]*>([\s\S]*?)<\/details>/g)];
+  assert.equal(cards.length, albums.length);
+
+  for (const [index, card] of cards.entries()) {
+    const labels = [...card[1].matchAll(/<button class="photo-button"[^>]*\baria-label="([^"]*)"/g)]
+      .map((match) => match[1]);
+    assert.equal(labels.length, albums[index].photos.length, albums[index].title);
+    assert.equal(new Set(labels).size, labels.length, albums[index].title);
+    labels.forEach((label, position) => {
+      assert.match(label, new RegExp(`^View photo ${position + 1} of ${labels.length}: `));
+    });
+  }
+
+  const homepage = fs.readFileSync(path.join(destination, "index.html"), "utf8");
+  const images = [...homepage.matchAll(/<img\b[^>]*>/g)].map((match) => match[0]);
+  for (const source of [
+    "/assets/website/2026/01/jsg-1024x768.jpg",
+    "/assets/website/2026/09/IMG_1050-1024x768.jpg",
+  ]) {
+    const image = images.find((tag) => tag.includes(`/preview${source}`));
+    assert.ok(image, `Missing homepage photo ${source}`);
+    assert.match(image, /\bwidth="1024"/);
+    assert.match(image, /\bheight="768"/);
+    assert.match(image, /\balt="[^"]+"/);
+    assert.ok(fs.existsSync(path.join(destination, source.slice(1))), `Missing asset ${source}`);
+  }
+});
+
 test("the favicon is available on site pages under a base URL", (t) => {
-  const root = path.resolve(__dirname, "..");
-  const destination = fs.mkdtempSync(path.join(os.tmpdir(), "jsg-site-test-"));
-  t.after(() => fs.rmSync(destination, { recursive: true, force: true }));
-  const build = spawnSync("bundle", [
-    "exec", "jekyll", "build", "--baseurl", "/preview", "--destination", destination,
-  ], {
-    cwd: root,
-    encoding: "utf8",
-    env: { ...process.env, BUNDLE_PATH: path.join(root, "vendor/bundle"), BUNDLE_FROZEN: "true" },
-  });
-  assert.equal(build.status, 0, build.error?.message || `${build.stdout}\n${build.stderr}`);
+  const destination = buildSite(t);
 
   let faviconUrl;
   for (const page of ["index.html", "wildlife/index.html"]) {

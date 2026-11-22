@@ -31,7 +31,7 @@ permalink: /gallery/
     </summary>
     <div class="album-photos" role="group" aria-label="Photos from {{ album.title | escape }}">
       {% for photo in album.photos %}
-      <button class="photo-button" type="button" data-full-src="{{ photo.full | relative_url }}" data-width="{{ photo.width }}" data-height="{{ photo.height }}" data-alt="{{ photo.alt | escape }}" data-caption="{{ photo.caption | escape }}" aria-label="View photo: {{ photo.caption | default: album.title | escape }}">
+      <button class="photo-button" type="button" data-full-src="{{ photo.full | relative_url }}" data-width="{{ photo.width }}" data-height="{{ photo.height }}" data-alt="{{ photo.alt | escape }}" data-caption="{{ photo.caption | escape }}" aria-label="View photo {{ forloop.index }} of {{ forloop.length }}: {{ photo.caption | default: album.title | escape }}">
         <img src="{{ photo.thumb | relative_url }}" width="{{ photo.width }}" height="{{ photo.height }}" alt="" loading="lazy">
         {% if photo.caption != "" %}
         <span>{{ photo.caption | escape }}</span>

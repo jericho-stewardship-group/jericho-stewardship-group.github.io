@@ -114,8 +114,8 @@
         {
           "thumb": "/assets/website/2023/05/IMG_3085-768x1024.jpg",
           "full": "/assets/website/2023/05/IMG_3085-768x1024.jpg",
-          "alt": "**March 2023** – Finally some sun! A busy day planting over 45 native shrubs in the park!",
-          "caption": "**March 2023** – Finally some sun! A busy day planting over 45 native shrubs in the park!",
+          "alt": "April 2023",
+          "caption": "",
           "width": 768,
           "height": 1024
         }
@@ -155,8 +155,8 @@
         {
           "thumb": "/assets/website/2023/05/IMG_2950-768x1024.jpg",
           "full": "/assets/website/2023/05/IMG_2950-768x1024.jpg",
-          "alt": "**February 2023** – Another rainy day removing ivy and blackberry as well as planting trees and shrubs!",
-          "caption": "**February 2023** – Another rainy day removing ivy and blackberry as well as planting trees and shrubs!",
+          "alt": "March 2023",
+          "caption": "",
           "width": 768,
           "height": 1024
         }
@@ -260,8 +260,8 @@
         {
           "thumb": "/assets/website/2023/05/IMG_2844-768x1024.jpg",
           "full": "/assets/website/2023/05/IMG_2844-768x1024.jpg",
-          "alt": "**January 2023** – Volunteers hard at work removing ivy and planting conifers!",
-          "caption": "**January 2023** – Volunteers hard at work removing ivy and planting conifers!",
+          "alt": "February 2023",
+          "caption": "",
           "width": 768,
           "height": 1024
         }
@@ -337,39 +337,6 @@
           "caption": "",
           "width": 1024,
           "height": 768
-        }
-      ]
-    },
-    {
-      "key": "2022-undefined-08",
-      "date": "2022-undefined-08",
-      "title": "May 8, 2022",
-      "year": "2022",
-      "description": "Photos from the May 8, 2022 stewardship work party",
-      "photos": [
-        {
-          "thumb": "/assets/website/2022/06/IMG_3984-300x225.jpeg",
-          "full": "/assets/website/2022/06/IMG_3984-300x225.jpeg",
-          "alt": "Volunteers take a well-deserved break at our May 8th 2022 work party.",
-          "caption": "Volunteers take a well-deserved break at our May 8th 2022 work party.",
-          "width": 300,
-          "height": 225
-        },
-        {
-          "thumb": "/assets/website/2022/06/IMG_3976-300x263.jpeg",
-          "full": "/assets/website/2022/06/IMG_3976-300x263.jpeg",
-          "alt": "Volunteers remove invasives at our May 8th 2022 work party.",
-          "caption": "Volunteers remove invasives at our May 8th 2022 work party.",
-          "width": 300,
-          "height": 263
-        },
-        {
-          "thumb": "/assets/website/2022/06/IMG_3981-2-300x225.jpeg",
-          "full": "/assets/website/2022/06/IMG_3981-2-300x225.jpeg",
-          "alt": "Volunteers remove invasives at our May 8th 2022 work party.",
-          "caption": "Volunteers remove invasives at our May 8th 2022 work party.",
-          "width": 300,
-          "height": 225
         }
       ]
     },
@@ -685,6 +652,39 @@
       ]
     },
     {
+      "key": "2022-05-08",
+      "date": "2022-05-08",
+      "title": "May 8, 2022",
+      "year": "2022",
+      "description": "Photos from the May 8, 2022 stewardship work party",
+      "photos": [
+        {
+          "thumb": "/assets/website/2022/06/IMG_3984-300x225.jpeg",
+          "full": "/assets/website/2022/06/IMG_3984-300x225.jpeg",
+          "alt": "Volunteers take a well-deserved break at our May 8th 2022 work party.",
+          "caption": "Volunteers take a well-deserved break at our May 8th 2022 work party.",
+          "width": 300,
+          "height": 225
+        },
+        {
+          "thumb": "/assets/website/2022/06/IMG_3976-300x263.jpeg",
+          "full": "/assets/website/2022/06/IMG_3976-300x263.jpeg",
+          "alt": "Volunteers remove invasives at our May 8th 2022 work party.",
+          "caption": "Volunteers remove invasives at our May 8th 2022 work party.",
+          "width": 300,
+          "height": 263
+        },
+        {
+          "thumb": "/assets/website/2022/06/IMG_3981-2-300x225.jpeg",
+          "full": "/assets/website/2022/06/IMG_3981-2-300x225.jpeg",
+          "alt": "Volunteers remove invasives at our May 8th 2022 work party.",
+          "caption": "Volunteers remove invasives at our May 8th 2022 work party.",
+          "width": 300,
+          "height": 225
+        }
+      ]
+    },
+    {
       "key": "2022-04-10",
       "date": "2022-04-10",
       "title": "April 10, 2022",
@@ -785,79 +785,6 @@
           "full": "/assets/website/2022/04/0C93845B-D86E-48AB-A973-DE9C98CBBB92_1_105_c-1-300x225.jpeg",
           "alt": "Volunteers enjoy a break at our Mar. 6th 2022 work party.",
           "caption": "Volunteers enjoy a break at our Mar. 6th 2022 work party.",
-          "width": 300,
-          "height": 225
-        }
-      ]
-    },
-    {
-      "key": "2021-undefined-09",
-      "date": "2021-undefined-09",
-      "title": "May 9, 2021",
-      "year": "2021",
-      "description": "Photos from the May 9, 2021 stewardship work party",
-      "photos": [
-        {
-          "thumb": "/assets/website/2021/05/May9_workparty3-300x225.jpg",
-          "full": "/assets/website/2021/05/May9_workparty3-300x225.jpg",
-          "alt": "Rohit and Caitlan show off the impressive work done by the May 9th 2021 work party.",
-          "caption": "Rohit and Caitlan show off the impressive work done by the May 9th 2021 work party.",
-          "width": 300,
-          "height": 225
-        },
-        {
-          "thumb": "/assets/website/2021/05/IMG_3922-300x225.jpg",
-          "full": "/assets/website/2021/05/IMG_3922-300x225.jpg",
-          "alt": "Judy plants oregon grape at our May 9th 2021 work party.",
-          "caption": "Judy plants oregon grape at our May 9th 2021 work party.",
-          "width": 300,
-          "height": 225
-        },
-        {
-          "thumb": "/assets/website/2021/05/IMG_3920-300x225.jpg",
-          "full": "/assets/website/2021/05/IMG_3920-300x225.jpg",
-          "alt": "Camilla plants a vine maple at our May 9th 2021 work party.",
-          "caption": "Camilla plants a vine maple at our May 9th 2021 work party.",
-          "width": 300,
-          "height": 225
-        },
-        {
-          "thumb": "/assets/website/2021/05/May9_workparty_1-300x225.jpg",
-          "full": "/assets/website/2021/05/May9_workparty_1-300x225.jpg",
-          "alt": "Liam and Dom remove invasive species at our May 9th 2021 work party.",
-          "caption": "Liam and Dom remove invasive species at our May 9th 2021 work party.",
-          "width": 300,
-          "height": 225
-        },
-        {
-          "thumb": "/assets/website/2021/05/May9_workparty2-300x225.jpg",
-          "full": "/assets/website/2021/05/May9_workparty2-300x225.jpg",
-          "alt": "Marcel removes invasive trees at our May 9th 2021 work party.",
-          "caption": "Marcel removes invasive trees at our May 9th 2021 work party.",
-          "width": 300,
-          "height": 225
-        },
-        {
-          "thumb": "/assets/website/2021/05/May9_workparty4-300x225.jpg",
-          "full": "/assets/website/2021/05/May9_workparty4-300x225.jpg",
-          "alt": "Taylor plants oregon grape at our May 9th 2021 work party.",
-          "caption": "Taylor plants oregon grape at our May 9th 2021 work party.",
-          "width": 300,
-          "height": 225
-        },
-        {
-          "thumb": "/assets/website/2021/05/IMG_3914-300x225.jpg",
-          "full": "/assets/website/2021/05/IMG_3914-300x225.jpg",
-          "alt": "Catherine and Brian plant a vine maple at our May 9th 2021 work party.",
-          "caption": "Catherine and Brian plant a vine maple at our May 9th 2021 work party.",
-          "width": 300,
-          "height": 225
-        },
-        {
-          "thumb": "/assets/website/2021/05/IMG_3895-300x225.jpg",
-          "full": "/assets/website/2021/05/IMG_3895-300x225.jpg",
-          "alt": "Susan selects native plants for our May 9th 2021 work party.",
-          "caption": "Susan selects native plants for our May 9th 2021 work party.",
           "width": 300,
           "height": 225
         }
@@ -1128,6 +1055,79 @@
           "full": "/assets/website/2021/06/4B262596-B376-4D7D-B239-B97C978F965D-300x225.jpeg",
           "alt": "Tree Frog at June 13th 2021 work party",
           "caption": "Tree Frog at June 13th 2021 work party",
+          "width": 300,
+          "height": 225
+        }
+      ]
+    },
+    {
+      "key": "2021-05-09",
+      "date": "2021-05-09",
+      "title": "May 9, 2021",
+      "year": "2021",
+      "description": "Photos from the May 9, 2021 stewardship work party",
+      "photos": [
+        {
+          "thumb": "/assets/website/2021/05/May9_workparty3-300x225.jpg",
+          "full": "/assets/website/2021/05/May9_workparty3-300x225.jpg",
+          "alt": "Rohit and Caitlan show off the impressive work done by the May 9th 2021 work party.",
+          "caption": "Rohit and Caitlan show off the impressive work done by the May 9th 2021 work party.",
+          "width": 300,
+          "height": 225
+        },
+        {
+          "thumb": "/assets/website/2021/05/IMG_3922-300x225.jpg",
+          "full": "/assets/website/2021/05/IMG_3922-300x225.jpg",
+          "alt": "Judy plants oregon grape at our May 9th 2021 work party.",
+          "caption": "Judy plants oregon grape at our May 9th 2021 work party.",
+          "width": 300,
+          "height": 225
+        },
+        {
+          "thumb": "/assets/website/2021/05/IMG_3920-300x225.jpg",
+          "full": "/assets/website/2021/05/IMG_3920-300x225.jpg",
+          "alt": "Camilla plants a vine maple at our May 9th 2021 work party.",
+          "caption": "Camilla plants a vine maple at our May 9th 2021 work party.",
+          "width": 300,
+          "height": 225
+        },
+        {
+          "thumb": "/assets/website/2021/05/May9_workparty_1-300x225.jpg",
+          "full": "/assets/website/2021/05/May9_workparty_1-300x225.jpg",
+          "alt": "Liam and Dom remove invasive species at our May 9th 2021 work party.",
+          "caption": "Liam and Dom remove invasive species at our May 9th 2021 work party.",
+          "width": 300,
+          "height": 225
+        },
+        {
+          "thumb": "/assets/website/2021/05/May9_workparty2-300x225.jpg",
+          "full": "/assets/website/2021/05/May9_workparty2-300x225.jpg",
+          "alt": "Marcel removes invasive trees at our May 9th 2021 work party.",
+          "caption": "Marcel removes invasive trees at our May 9th 2021 work party.",
+          "width": 300,
+          "height": 225
+        },
+        {
+          "thumb": "/assets/website/2021/05/May9_workparty4-300x225.jpg",
+          "full": "/assets/website/2021/05/May9_workparty4-300x225.jpg",
+          "alt": "Taylor plants oregon grape at our May 9th 2021 work party.",
+          "caption": "Taylor plants oregon grape at our May 9th 2021 work party.",
+          "width": 300,
+          "height": 225
+        },
+        {
+          "thumb": "/assets/website/2021/05/IMG_3914-300x225.jpg",
+          "full": "/assets/website/2021/05/IMG_3914-300x225.jpg",
+          "alt": "Catherine and Brian plant a vine maple at our May 9th 2021 work party.",
+          "caption": "Catherine and Brian plant a vine maple at our May 9th 2021 work party.",
+          "width": 300,
+          "height": 225
+        },
+        {
+          "thumb": "/assets/website/2021/05/IMG_3895-300x225.jpg",
+          "full": "/assets/website/2021/05/IMG_3895-300x225.jpg",
+          "alt": "Susan selects native plants for our May 9th 2021 work party.",
+          "caption": "Susan selects native plants for our May 9th 2021 work party.",
           "width": 300,
           "height": 225
         }

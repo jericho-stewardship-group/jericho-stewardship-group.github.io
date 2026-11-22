@@ -36,6 +36,14 @@ Join us for one of our stewardship sessions to help us restore areas of the park
   <a class="button" href="https://www.meetup.com/vancouver-environment-meetup/events/317185809/?utm_medium=referral&amp;utm_campaign=share-btn_savedevents_share_modal&amp;utm_source=link&amp;utm_version=v2&amp;member_id=234255682">Original event listing <span aria-hidden="true">&rarr;</span></a>
 </section>
 
+<section aria-labelledby="volunteer-photos-title">
+  <h2 id="volunteer-photos-title">Our volunteers</h2>
+  <div class="home-photos">
+    <img src="{{ '/assets/website/2026/01/jsg-1024x768.jpg' | relative_url }}" width="1024" height="768" alt="Stewardship volunteers gathered in an autumn woodland" loading="lazy">
+    <img src="{{ '/assets/website/2026/09/IMG_1050-1024x768.jpg' | relative_url }}" width="1024" height="768" alt="Stewardship volunteers gathered in a grassy park area" loading="lazy">
+  </div>
+</section>
+
 <blockquote>
   <p>If you help the natural world, the world becomes a better place for everybody.</p>
   <cite>David Attenborough</cite>
