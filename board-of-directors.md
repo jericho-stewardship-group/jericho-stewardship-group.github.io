@@ -1,9 +1,8 @@
 ---
 title: "Board of Directors"
 permalink: /board-of-directors/
+page_class: team
 ---
-
-##  
 
 ## Susan Fisher
 

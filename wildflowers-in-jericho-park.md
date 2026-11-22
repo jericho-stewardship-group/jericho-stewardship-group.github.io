@@ -3,7 +3,7 @@ title: "Wildflowers in Jericho Park"
 permalink: /wildflowers-in-jericho-park/
 ---
 
-- ![]({{ '/assets/website/2021/03/P1080828-1024x768.jpeg' | relative_url }}){: style="max-width: 100%; height: auto" loading="lazy"}
+- ![]({{ '/assets/website/2021/03/P1080828-1024x768.jpeg' | relative_url }}){: width="1024" height="768" }
 
 Chocolate Lily (*Fritillaria affinis*)
 
@@ -11,7 +11,7 @@ In early February, Jericho Stewardship Group volunteers planted over 100 bulbs o
 
 Many of these plants may once have grown in Jericho, but they have not been seen here for decades. (The exception is camas: a few were planted along the shore in 2013 as part of the Jericho Beach Restoration Project.) Camas, wild onion, and the chocolate lily were important food plants for local indigenous people. Camas beds were owned and cultivated by particular families. They were harvested right after flowering so that the bulbs would not be confused with those of the poisonous death-camas (*Zygadenus venenosus*), which has a white flower. The bulbs were then steamed for a day and a night and then eaten or dried for storage. The Fritillaria bulbs were steamed for a shorter period of time and mashed. The bulblets surrounding the main bulb are said to taste like rice. 
 
-- ![]({{ '/assets/website/2021/03/DSCN0252-1024x768.jpeg' | relative_url }}){: style="max-width: 100%; height: auto" loading="lazy"}
+- ![]({{ '/assets/website/2021/03/DSCN0252-1024x768.jpeg' | relative_url }}){: width="1024" height="768" }
 
 White Fawn Lily (*Erythronium oregonum*)\
 
@@ -27,7 +27,7 @@ Most germinate the spring following collection, often after being subjected to w
 
 *Trillium ovatum* is in a class of its own.  The seeds must be planted right after harvest in July; in the first year they show no growth above ground. A first small seed leaf appears in year two but it’s a total of seven years before the plant will flower. We’re just coming into the third spring with our seedlings. Division of the rhizome while mature plants are in bloom is much easier and quicker: it takes about two years for the Trillium plants to come back to strong, blooming size.  The three pots of Trillium we have for Jericho come from a “rescue” opportunity we had on a 3.5 acre wooded site in North Surrey. It was about to be cleared for a 26 lot subdivision. From it we got more than 25 pots with 2 to 5 stems each
 
-- ![]({{ '/assets/website/2021/03/P1100105-768x1024.jpeg' | relative_url }}){: style="max-width: 100%; height: auto" loading="lazy"}
+- ![]({{ '/assets/website/2021/03/P1100105-768x1024.jpeg' | relative_url }}){: width="768" height="1024" }
 
 Great Camas (*Camassia leichtliniii*)
 
@@ -45,7 +45,7 @@ The Erythronium are typically in their fourth spring for the majority to bloom; 
 
 If anyone knows of any property (wild or garden) being developed or redeveloped that contains natives that we can salvage, we’d like to know about it. Please contact Jericho Stewardship Group and we will pass on the information. 
 
-- ![]({{ '/assets/website/2021/03/P1490098-1-768x1024.jpeg' | relative_url }}){: style="max-width: 100%; height: auto" loading="lazy"}
+- ![]({{ '/assets/website/2021/03/P1490098-1-768x1024.jpeg' | relative_url }}){: width="768" height="1024" }
 
 Nodding Onion (*Allium cernuum*)
 

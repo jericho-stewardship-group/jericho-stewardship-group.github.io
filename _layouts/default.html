@@ -6,41 +6,110 @@
     <meta name="description" content="{{ page.description | default: site.description | escape }}">
     <title>{% unless page.url == '/' %}{{ page.title | escape }} | {% endunless %}{{ site.title | escape }}</title>
     <link rel="stylesheet" href="{{ '/styles.css' | relative_url }}">
+    <script src="{{ '/assets/site.js' | relative_url }}" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
-      <a class="wordmark" href="{{ '/' | relative_url }}">Jericho <span>Stewardship Group</span></a>
-      <nav aria-label="Main navigation">
-        <a href="{{ '/#site-pages' | relative_url }}">About</a>
-        <a href="{{ '/volunteer/' | relative_url }}">Volunteer</a>
+      <a class="wordmark" href="{{ '/' | relative_url }}">
+        <span class="wordmark-mark" aria-hidden="true">J</span>
+        <span>Jericho <strong>Stewardship Group</strong></span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <details class="nav-group">
+          <summary>About</summary>
+          <div class="nav-menu">
+            <a href="{{ '/what-we-do/' | relative_url }}">What We Do</a>
+            <a href="{{ '/board-of-directors/' | relative_url }}">Board of Directors</a>
+            <a href="{{ '/who-we-are/' | relative_url }}">JSG Partners</a>
+            <a href="{{ '/documents/' | relative_url }}">Documents</a>
+          </div>
+        </details>
+        <details class="nav-group">
+          <summary>Nature</summary>
+          <div class="nav-menu">
+            <a href="{{ '/native-plants/' | relative_url }}">Native Plants</a>
+            <a href="{{ '/invasive-plants/' | relative_url }}">Invasive Plants</a>
+            <a href="{{ '/wildlife/' | relative_url }}">Wildlife</a>
+            <a href="{{ '/wildflowers-in-jericho-park/' | relative_url }}">Wildflowers</a>
+            <a href="{{ '/bird-survey-report/' | relative_url }}">Bird Survey Report</a>
+          </div>
+        </details>
         <a href="{{ '/gallery/' | relative_url }}">Gallery</a>
+        <a href="{{ '/blog/' | relative_url }}">Blog</a>
+        <a href="{{ '/contact-us/' | relative_url }}">Contact</a>
+        <a class="nav-cta" href="{{ '/volunteer/' | relative_url }}">Volunteer</a>
       </nav>
     </header>
 
-    <main id="top">
-      <section class="hero" aria-labelledby="page-title">
-        <p class="eyebrow">{{ site.title | escape }}</p>
-        <h1 id="page-title">{{ page.title | escape }}</h1>
-        {% if page.intro %}
-        <p class="intro">{{ page.intro | escape }}</p>
+    <main id="main">
+      <section class="hero{% if page.url == '/' %} hero--home{% endif %}" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="eyebrow">{% if page.url == '/' %}Jericho Beach Park{% else %}Jericho Stewardship Group{% endif %}</p>
+          <h1 id="page-title">{{ page.hero_title | default: page.title | escape }}</h1>
+          {% if page.intro %}
+          <p class="intro">{{ page.intro | escape }}</p>
+          {% endif %}
+          {% if page.url == '/' %}
+          <a class="button button--light" href="{{ '/volunteer/' | relative_url }}">Volunteer with Us <span aria-hidden="true">&rarr;</span></a>
+          {% endif %}
+        </div>
+        {% if page.hero_image %}
+        <div class="hero-image">
+          <img src="{{ page.hero_image | relative_url }}" width="{{ page.hero_image_width }}" height="{{ page.hero_image_height }}" alt="" fetchpriority="high">
+        </div>
         {% endif %}
-        {% if page.url == '/' %}
-        <a class="button" href="{{ '/volunteer/' | relative_url }}">Volunteer with Us <span aria-hidden="true">&darr;</span></a>
-        {% endif %}
-        <div class="hero-mark" aria-hidden="true">J</div>
       </section>
 
-      <section class="content-grid" aria-label="{{ page.title | escape }}" style="grid-template-columns: minmax(0, 1fr)">
-        <article class="content-card" style="min-width: 0; line-height: 1.7; overflow-wrap: anywhere">
+      <div class="page-shell">
+        <article class="page-content{% if page.page_class %} page-content--{{ page.page_class }}{% endif %}">
           {{ content }}
         </article>
-      </section>
+      </div>
     </main>
 
     <footer class="site-footer">
-      <a href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
-      <a href="{{ '/blog/' | relative_url }}">Blog</a>
-      <a href="{{ '/contact-us/' | relative_url }}">Contact Us</a>
+      <div class="footer-brand">
+        <a class="wordmark" href="{{ '/' | relative_url }}">Jericho <strong>Stewardship Group</strong></a>
+        <p>Conserving Jericho Beach Park for Future Generations</p>
+        <a href="mailto:jerichostewardship@gmail.com">jerichostewardship@gmail.com</a>
+      </div>
+      <div class="footer-links">
+        <div>
+          <h2>About</h2>
+          <a href="{{ '/what-we-do/' | relative_url }}">What We Do</a>
+          <a href="{{ '/board-of-directors/' | relative_url }}">Board of Directors</a>
+          <a href="{{ '/who-we-are/' | relative_url }}">JSG Partners</a>
+          <a href="{{ '/documents/' | relative_url }}">Documents</a>
+        </div>
+        <div>
+          <h2>Explore</h2>
+          <a href="{{ '/native-plants/' | relative_url }}">Native Plants</a>
+          <a href="{{ '/invasive-plants/' | relative_url }}">Invasive Plants</a>
+          <a href="{{ '/wildlife/' | relative_url }}">Wildlife</a>
+          <a href="{{ '/wildflowers-in-jericho-park/' | relative_url }}">Wildflowers</a>
+          <a href="{{ '/bird-survey-report/' | relative_url }}">Bird Survey Report</a>
+        </div>
+        <div>
+          <h2>Join in</h2>
+          <a href="{{ '/volunteer/' | relative_url }}">Volunteer</a>
+          <a href="{{ '/gallery/' | relative_url }}">Gallery</a>
+          <a href="{{ '/blog/' | relative_url }}">Blog</a>
+          <a href="{{ '/contact-us/' | relative_url }}">Contact</a>
+        </div>
+      </div>
+      <p class="footer-note">Working with the Vancouver Park Board to restore and encourage the natural habitat of Jericho Beach Park.</p>
     </footer>
+    {% if page.url == '/gallery/' %}
+    <dialog class="photo-viewer" id="photo-viewer" aria-label="Photo viewer">
+      <button class="viewer-close" type="button" aria-label="Close photo viewer">&times;</button>
+      <button class="viewer-prev" type="button" aria-label="Previous photo">&larr;</button>
+      <figure>
+        <img class="viewer-image" width="{{ site.data.gallery.albums.first.photos.first.width }}" height="{{ site.data.gallery.albums.first.photos.first.height }}" alt="">
+        <figcaption class="viewer-caption"></figcaption>
+      </figure>
+      <button class="viewer-next" type="button" aria-label="Next photo">&rarr;</button>
+    </dialog>
+    {% endif %}
   </body>
 </html>
