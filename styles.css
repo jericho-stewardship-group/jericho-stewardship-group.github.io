@@ -464,9 +464,25 @@ h1 {
   margin: 7px 0;
 }
 
+.event-card .eyebrow {
+  color: var(--green);
+}
+
 .event-note {
   color: var(--muted);
   font-size: 14px;
+}
+
+.home-photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 18px;
+}
+
+.home-photos img {
+  display: block;
+  width: 100%;
+  border-radius: 5px;
 }
 
 .feature-links {
@@ -592,7 +608,7 @@ h1 {
 }
 
 .page-content--partners img {
-  max-width: 130px;
+  max-width: min(100%, 130px);
   max-height: 80px;
   object-fit: contain;
 }
@@ -692,9 +708,11 @@ h1 {
   padding: 18px;
 }
 
-.photo-button {
+.page-content .photo-button {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  min-width: 0;
   padding: 0;
   overflow: hidden;
   border: 1px solid var(--line);
@@ -703,6 +721,10 @@ h1 {
   color: var(--ink);
   text-align: left;
   cursor: zoom-in;
+}
+
+.page-content .photo-button:hover {
+  background: var(--green-light);
 }
 
 .photo-button img {
@@ -725,7 +747,7 @@ h1 {
   max-width: none;
   max-height: 94vh;
   padding: 50px 64px 32px;
-  overflow: visible;
+  overflow: auto;
   border: 0;
   border-radius: 6px;
   background: #101714;
