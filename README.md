@@ -11,6 +11,7 @@ A Jekyll recreation of the Jericho Stewardship Group website, published with Git
 - `_includes/` contains the newsletter and contact forms and blog index.
 - `_data/gallery.json` contains the photo album and caption data used by the Gallery page.
 - `assets/website/` contains the local images and documents from the source site.
+- `favicon.ico` contains the site favicon.
 - `styles.css` contains the responsive site styles.
 - `assets/site.js` enhances plant galleries, director cards, and the Gallery photo viewer. It opens external web links in new tabs.
 - `_config.yml` contains the Jekyll and GitHub Pages settings.
@@ -59,7 +60,7 @@ BUNDLE_PATH=vendor/bundle bundle exec jekyll build
 
 Jekyll writes the generated HTML to `_site/`. The generated site and local dependencies are ignored by Git. Do not edit or commit them.
 
-Run the link behavior and preview-script checks with Node.js 18 or later:
+After installing the Jekyll dependencies, run the site and preview-script checks with Node.js 18 or later:
 
 ```bash
 node --test _tests/*.test.js

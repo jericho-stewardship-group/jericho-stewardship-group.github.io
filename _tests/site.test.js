@@ -1,5 +1,7 @@
 const assert = require("node:assert/strict");
+const { spawnSync } = require("node:child_process");
 const fs = require("node:fs");
+const os = require("node:os");
 const path = require("node:path");
 const test = require("node:test");
 const vm = require("node:vm");
@@ -109,4 +111,36 @@ test("gallery viewer updates image dimensions when changing photos", () => {
   assert.equal(image.src, "/tall.jpg");
   assert.equal(previous.disabled, false);
   assert.equal(next.disabled, true);
+});
+
+test("the favicon is available on site pages under a base URL", (t) => {
+  const root = path.resolve(__dirname, "..");
+  const destination = fs.mkdtempSync(path.join(os.tmpdir(), "jsg-site-test-"));
+  t.after(() => fs.rmSync(destination, { recursive: true, force: true }));
+  const build = spawnSync("bundle", [
+    "exec", "jekyll", "build", "--baseurl", "/preview", "--destination", destination,
+  ], {
+    cwd: root,
+    encoding: "utf8",
+    env: { ...process.env, BUNDLE_PATH: path.join(root, "vendor/bundle"), BUNDLE_FROZEN: "true" },
+  });
+  assert.equal(build.status, 0, build.error?.message || `${build.stdout}\n${build.stderr}`);
+
+  let faviconUrl;
+  for (const page of ["index.html", "wildlife/index.html"]) {
+    const html = fs.readFileSync(path.join(destination, page), "utf8");
+    const link = html.match(/<link\b(?=[^>]*\brel=["']icon["'])[^>]*\bhref=["']([^"']+)["'][^>]*>/i);
+    assert.ok(link, `Missing favicon on ${page}`);
+    assert.ok(link[1].startsWith("/preview/"), `Favicon does not use the base URL on ${page}`);
+    if (faviconUrl) assert.equal(link[1], faviconUrl);
+    faviconUrl = link[1];
+  }
+
+  const icon = fs.readFileSync(path.join(destination, faviconUrl.slice("/preview/".length)));
+  assert.equal(icon.readUInt16LE(0), 0);
+  assert.equal(icon.readUInt16LE(2), 1);
+  const sizes = new Set(Array.from({ length: icon.readUInt16LE(4) }, (_, index) =>
+    `${icon.readUInt8(6 + index * 16)}x${icon.readUInt8(7 + index * 16)}`));
+  assert.ok(sizes.has("16x16"));
+  assert.ok(sizes.has("32x32"));
 });
