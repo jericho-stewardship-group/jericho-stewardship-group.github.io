@@ -1,0 +1,133 @@
+name: Check gallery photos
+
+on:
+  pull_request:
+    paths:
+      - "assets/website/**"
+      - "_data/gallery.json"
+      - "scripts/validate-gallery.js"
+      - "_tests/gallery-validation.test.js"
+      - ".github/workflows/validate-gallery.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gallery-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    outputs:
+      repair: ${{ steps.validate.outputs.repair }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install image tools
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq imagemagick
+      - name: Test photo validation
+        run: node --test _tests/gallery-validation.test.js
+      - name: Validate new photos
+        id: validate
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          SAME_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+        run: |
+          # Use the base validator when available; initial rollout is read-only.
+          validator="$RUNNER_TEMP/validate-gallery.cjs"
+          if ! git show "$BASE_SHA:scripts/validate-gallery.js" > "$validator"; then
+            cp scripts/validate-gallery.js "$validator"
+          fi
+          set +e
+          node "$validator" --base "$BASE_SHA" 2>&1 | tee "$RUNNER_TEMP/gallery-check.log"
+          status=${PIPESTATUS[0]}
+          set -e
+          {
+            echo '### Gallery photo check'
+            echo '```text'
+            cat "$RUNNER_TEMP/gallery-check.log"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$status" -eq 0 ]; then
+            echo "repair=false" >> "$GITHUB_OUTPUT"
+          elif [ "$status" -eq 2 ] && [ "$SAME_REPOSITORY" = "true" ]; then
+            echo "repair=true" >> "$GITHUB_OUTPUT"
+            echo 'Only dimensions are missing. The repair job will resize the photos and save their dimensions.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo '::error::Please fix the photo issues listed above. For missing dimensions, run the local script with --repair and commit the result. Fork pull requests cannot receive automatic repair commits.'
+            exit 1
+          fi
+
+  repair:
+    needs: validate
+    if: needs.validate.outputs.repair == 'true' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install image tools
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq imagemagick
+      - name: Repair and recheck photos with trusted code
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          validator="$RUNNER_TEMP/validate-gallery.cjs"
+          if ! git show "$BASE_SHA:scripts/validate-gallery.js" > "$validator"; then
+            echo '::error::Automatic repair is not available until the validator is on the base branch. Run node scripts/validate-gallery.js --repair locally, then commit the result.'
+            echo 'Automatic repair is not available during initial rollout. Run the local validator with --repair and commit the result.' >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+          trap 'echo "::error::Photo repair failed. See the error above; no repair commit was pushed." ; echo "Photo repair failed. No repair commit was pushed." >> "$GITHUB_STEP_SUMMARY"' ERR
+          node "$validator" --base "$BASE_SHA" --repair --report "$RUNNER_TEMP/gallery-repairs.json"
+          node "$validator" --base "$BASE_SHA"
+      - name: Commit and push only repaired files
+        env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          trap 'echo "::error::Could not publish photo repairs. The branch may have changed, or repository settings may block the push. Run the local script with --repair and commit the result." ; echo "Could not publish repairs. Check branch protection and workflow write permissions, or run the local script with --repair." >> "$GITHUB_STEP_SUMMARY"' ERR
+          node - "$RUNNER_TEMP/gallery-repairs.json" <<'NODE'
+          const fs = require("node:fs");
+          const { execFileSync } = require("node:child_process");
+          const { repairedFiles } = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
+          if (!Array.isArray(repairedFiles) || !repairedFiles.length ||
+              repairedFiles.some((file) => typeof file !== "string" ||
+                (file !== "_data/gallery.json" && !/^assets\/website\/[A-Za-z0-9_./-]+\.(jpg|jpeg|png|webp)$/i.test(file)) ||
+                file.split("/").some((part) => part === ".." || part === "." || !part))) {
+            throw new Error("Invalid repair file list. No files were committed.");
+          }
+          execFileSync("git", ["add", "--", ...repairedFiles], { stdio: "inherit" });
+          NODE
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -c core.hooksPath=/dev/null -c commit.gpgsign=false commit \
+            -m "Normalize new gallery photos and record their dimensions" \
+            -m "Missing dimensions prevent the gallery from reserving image space. Resize affected photos to a maximum 1024-pixel long edge without cropping or enlargement, and record both actual dimensions. All photo checks passed before this repair." \
+            -m "Co-authored-by: Copilot App <223556219+Copilot@users.noreply.github.com>"
+          # Supply credentials only to Git, without saving them in the checkout.
+          export GIT_CONFIG_COUNT=1
+          export GIT_CONFIG_KEY_0=http.https://github.com/.extraheader
+          export GIT_CONFIG_VALUE_0="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 | tr -d '\n')"
+          live_head=$(git ls-remote --exit-code origin "refs/heads/$HEAD_REF" | cut -f1)
+          if [ "$live_head" != "$HEAD_SHA" ]; then
+            echo '::error::The pull request branch changed during validation. No repair commit was pushed. Rerun the check on the latest revision.'
+            exit 1
+          fi
+          git -c core.hooksPath=/dev/null push origin "HEAD:refs/heads/$HEAD_REF"
+          echo 'Photos were resized where needed, their actual dimensions were saved, and the repair commit was pushed. The repaired result passed validation in this run.' >> "$GITHUB_STEP_SUMMARY"
